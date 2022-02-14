@@ -18,6 +18,8 @@ public class MoveBall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myManager.ReadfromFile();           //reads and updates last match history
+
         //sets a random direction for the ball to move
         randDir = Random.Range(0,2); 
         if(randDir == 0)
@@ -38,8 +40,9 @@ public class MoveBall : MonoBehaviour
     void Update()
     {
         //checks if one of the player's score is 10 and if true switches the screen to restart game
-        if(myManager.playerOneScore == 10 || myManager.playerTwoScore == 10)
+        if(myManager.timeStart <= 0)
         {
+            myManager.WritetoFile(myManager.playerOneScore, myManager.playerTwoScore);
             GoToScene("Restart Game");
         }
     }
